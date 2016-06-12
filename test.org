@@ -1,0 +1,151 @@
+#+TITLE: A test presentation for Jupyter 
+
+* Part I 
+
+** Slide with source 
+
+sTart with text? 
+
+
+- and here 
+  - subitem 
+- comes
+- source code 
+  - with more indents
+
+With *bold* text  and _empahizsed_ text 
+
+
+And this one should be animated
+
+
+And animated source code 
+
+#+ATTR_JUSLIDES: :animate t 
+#+BEGIN_SRC python
+x = [5, 7, 19]
+x = 2*x
+print(x)
+#+END_SRC
+
+
+
+
+** Slide with subtitles 
+   :PROPERTIES:
+   :animate: 1
+   :END:
+
+- a
+- b 
+
+#+BEGIN_SRC python
+x = 17
+x = 3*x
+print(x)
+#+END_SRC
+
+
+*** Subtitle 
+
+
+some text 
+
+* Part II : Includes and excludes 
+
+** Not on slide							   :notslide:
+
+This slide should not appear on the slide output 
+
+But in the notmal output 
+
+
+** Again on slide 
+
+And another slide, back on all outputs 
+
+** A slide with animations 
+
+- bla
+#+ANIMATE:
+- bla1 
+- bl2
+
+
+
+
+
+
+** Neither on slide, nor on output				   :noexport:
+
+Pellentesque dapibus suscipit ligula.  Donec posuere augue in quam.
+Etiam vel tortor sodales tellus ultricies commodo.  Suspendisse
+potenti.  Aenean in sem ac leo mollis blandit.  Donec neque quam,
+dignissim in, mollis nec, sagittis eu, wisi.  Phasellus lacus.  Etiam
+laoreet quam sed arcu.  Phasellus at dui in ligula mollis ultricies.
+Integer placerat tristique nisl.  Praesent augue.  Fusce commodo.
+Vestibulum convallis, lorem a tempus semper, dui dui euismod elit,
+vitae placerat urna tortor vitae lacus.  Nullam libero mauris,
+consequat quis, varius et, dictum id, arcu.  Mauris mollis tincidunt
+felis.  Aliquam feugiat tellus ut neque.  Nulla facilisis, risus a
+rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo
+sit amet elit.
+
+** And only on slide					   :noexport:onslide:
+
+- Fusce sagittis, libero non molestie mollis,
+- magna orci ultrices dolor,
+- at vulputate neque nulla lacinia eros.
+
+
+
+** Normal slide in this section 
+
+- sdfs
+- sdf sd fsdf 
+- sdfsdfsd 
+
+* Part III: Subslides 
+
+** A normal slide 
+
+- a 
+- g 
+
+** A subslide							   :subslide:
+
+- d
+- c
+
+** Another subslide						   :subslide:
+
+- f
+- e 
+- g
+
+** And a normal slide 
+
+- h 
+- i 
+
+
+** A slide heading 
+
+
+This is *bold* text 
+
+This is a another paragraph 
+
+And LaTeX markup: $x = \sin(x)$ 
+
+- bla 
+- bla 
+
+Some text before the next heading 
+
+Lorem ipsum dolorsa 
+
+*** Another subtitle 
+
+- e 
+- f
