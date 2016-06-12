@@ -1,4 +1,4 @@
-# Export backend for Org-Mode to Jupyter Notebook, specifaically geared towards slides #
+# Export backend for Org-Mode to Jupyter Notebook, specifically geared towards slides #
 
 ## Goal 
 
@@ -7,7 +7,7 @@ This project provides a backend for org-mode that specifcally concentrates on pr
 * [RISE at Github ](https://github.com/damianavila/RISE)
 * [Pythontutor ](http://www.pythontutor.com)
 
-Mid-term goal is to write a slide dekc and script for Computer Science 101 Intorudciton to Programming class with it. (Taught at Paderborn University, winter term 2016/2017).
+Mid-term goal is to write a slide deck and script for Computer Science 101 Intorudciton to Programming class with it. (Taught at Paderborn University, winter term 2016/2017).
 
 Specifically, Org-mode annotations should enable animations on slides, play nice with source code, etc. 
 

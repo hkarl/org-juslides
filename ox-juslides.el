@@ -44,8 +44,8 @@
 	     )
     (org-juslides-cell "code"
 		       (if animate
-			   "\"fragment\""
-			 "\"-\"")
+			   "fragment"
+			 "-")
 		       code)
     )
   )
@@ -150,7 +150,10 @@ a communication channel."
 
 (defun org-juslides-cell (celltype slidetype source &optional x)
   "Produce a JSON-formated cell of celltype, with slidetype 
-set accordingly. Source is the content of the cell"
+set accordingly. Source is the content of the cell. 
+The optinal parameter x tells us whether to prepend this block with the closing 
+brackets for the previous block; x is nil for ordinary blocks and only set to true 
+for the very first block we crete (i.e., true suppresses prepending of closing brackets."
   (format
    "%s{
      \"cell_type\": \"%s\",
@@ -158,7 +161,7 @@ set accordingly. Source is the content of the cell"
         \"slideshow\": {
            \"slide_type\": \"%s\"
          } 
-     },
+     }, %s
      \"source\": [[[ 
 %s"
    (if (not x)
@@ -167,6 +170,10 @@ set accordingly. Source is the content of the cell"
      "")
    celltype
    slidetype
+   (if (equal celltype "code")
+       "\n\"outputs\": [],
+\"execution_count\": null,"
+     "")
    source
    )
   )
