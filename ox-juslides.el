@@ -215,13 +215,24 @@ for the very first block we crete (i.e., true suppresses prepending of closing b
    )
   )
 
+;;; Structure functions: Title slide, Overview slides
+
+(defun org-juslides-titleslide (info)
+  (let ( (titlestr   (org-export-data (plist-get info :title) info))
+	 (author   (org-export-data (plist-get info :author) info))
+	)
+    (concat "<h1>" titlestr "</h1>\n<p><p><h2>" author "</h2>")
+    )
+  )
+
+
 ;;; High-level funtions
 
 (defun org-juslides-inner-template (contents info)
   "Return body of document after converting it to Markdown syntax.
 CONTENTS is the transcoded contents string.  INFO is a plist
 holding export options."
-  (let ((titleslide "this is title")
+  (let ((titleslide (org-juslides-titleslide info))
 	)
       (format "{
 \"cells\": [
