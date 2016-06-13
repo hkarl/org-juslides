@@ -33,11 +33,35 @@
 		     (bold . org-juslides-bold)
 		     (src-block . org-juslides-src-block)
 		     (inner-template . org-juslides-inner-template)
+		     (latex-fragment . org-juslides-latex-fragment)
+		     (latex-environment . org-juslides-latex-environment)
+		     ; TODO: Make sure to set org-html-with-latex to verbatim for this to work! 
 		     )
   )
 
 
 ;;; Translators
+
+(defun org-juslides-protect-backslash (text)
+  "Replace any single backslash with two backslahes."
+  ;; Note: the following looks odd, but it really does double a single backslad.
+  ;; Watch out for the second optioal argument, LITERAL = true, to see why. 
+  (replace-regexp-in-string "\\\\" "\\\\" text t t)
+  )
+
+(defun org-juslides-latex-fragment (latex-fragment _contents info)
+  (let ( (tmp (org-html-latex-fragment latex-fragment _contents info) )
+	 )
+    (org-juslides-protect-backslash tmp) 
+    )
+  )
+
+(defun org-juslides-latex-environment (latex-fragment _contents info)
+  (let ( (tmp (org-html-latex-environment latex-fragment _contents info)))
+    (org-juslides-protect-backslash tmp) 
+    )
+  )
+
 (defun org-juslides-src-block (src-block contents info)
   (let ( (code (org-export-format-code-default src-block info))
 	 (animate (org-export-read-attribute :attr_juslides src-block :animate))
@@ -224,16 +248,12 @@ holding export options."
 (defun org-juslides-final-function (contents _backend info)
   ;; work on the buffer to replace the sources strings
 
-  (message "Running juslides final function")
-  (message contents)
-  
   (with-temp-buffer
     (insert contents)
     (goto-char (point-min))
     ;; process the source instructions: 
     (while (re-search-forward "\"source\": \\[\\[\\[\\(\\(.\\|\n\\)*?\\)\\]\\]\\]" nil t)
     					; (replace-match decorated)
-      (message (match-string 1))
       (let* (
     	     (source (replace-regexp-in-string
     	     	      "\""
@@ -260,8 +280,6 @@ holding export options."
 
     
     ;; return buffer content as resulting string:
-    (message "----------------")
-    (message (buffer-substring-no-properties (point-min) (point-max)))
     (buffer-substring-no-properties (point-min) (point-max))
     )
   )
@@ -303,8 +321,6 @@ be displayed when `org-export-show-temporary-export-buffer' is
 non-nil."
   (interactive)
 
-  (message "Running export to buffer")
-  
   (org-export-to-buffer 'juslides "*Org JUSLIDES Export*"
     async subtreep visible-only nil nil (lambda () (json-mode)))  
   )
