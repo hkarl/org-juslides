@@ -96,6 +96,8 @@ This is based on markdown exporter's headline handling"
 			(and tag-list
 			     (format "     :%s:"
 				     (mapconcat 'identity tag-list ":"))))))
+	   (skipslide (and tags
+			   (string-match "notslide" tags)))
 	   (priority
 	    (and (plist-get info :with-priority)
 		 (let ((char (org-element-property :priority headline)))
@@ -137,12 +139,14 @@ This is based on markdown exporter's headline handling"
 	)
        ;; HEadline level 2, i.e., a normal slide? 
        ((eq level 2)
-	(concat (org-juslides-cell "markdown"
-				   "slide"
-				   (concat "# " heading tags anchor "\n\n" )
-				   )
-		contents
-		)
+	(if (not skipslide)
+	    (concat (org-juslides-cell "markdown"
+				       "slide"
+				       (concat "# " heading tags anchor "\n\n" )
+				       )
+		    contents
+		    )
+	  )
 	)
        ;; Ordinary processing
        ;; Use "Setext" style.

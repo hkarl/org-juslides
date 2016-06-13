@@ -2,7 +2,7 @@
 
 * Part I 
 
-** Slide with source 
+** Slide with normal markup  
 
 sTart with text? 
 
@@ -16,8 +16,8 @@ sTart with text?
 With *bold* text  and /empahizsed/ text  */and both/* 
 ~stuff in fixed font~ 
 
+** Slide with source code 
 
-And this one should be animated
 
 
 And animated source code 
@@ -60,6 +60,9 @@ This slide should not appear on the slide output
 
 But in the notmal output 
 
+*** Subtitles on skipped slide 
+
+This should not appear, either 
 
 ** Again on slide 
 
