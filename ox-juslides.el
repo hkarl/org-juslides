@@ -152,7 +152,7 @@ This is based on markdown exporter's headline handling"
 		"\n\n"
 		contents))
        ;; Use "atx" style.
-       (t (let ((source (concat (make-string level ?#) " " heading tags anchor "\n\n" contents))
+       (t (let ((source (concat (make-string (- level 1) ?#) " " heading tags anchor "\n\n" contents))
 		)
 	    (if (member "animate" tag-list)
 		(org-juslides-cell "markdown" "fragment" source)
