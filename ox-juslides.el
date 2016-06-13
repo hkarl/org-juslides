@@ -232,22 +232,25 @@ holding export options."
     (goto-char (point-min))
     ;; process the source instructions: 
     (while (re-search-forward "\"source\": \\[\\[\\[\\(\\(.\\|\n\\)*?\\)\\]\\]\\]" nil t)
-					; (replace-match decorated)
+    					; (replace-match decorated)
+      (message (match-string 1))
       (let* (
-	     (source (replace-regexp-in-string
-		      "\""
-		      "\\\\\\\\\""
-		      (match-string 1)))
-	     (protectedSource (replace-regexp-in-string
-			       "\n"
-			       "\\\\\\\\n\",\n\""
-			       source
-			       ))
-	     (completeSource (concat "\"" protectedSource "\"\n"))
-	     (sourcedSource (concat "\"source\": [" completeSource "]"))
-	    )
-	(replace-match sourcedSource)
-	)
+    	     (source (replace-regexp-in-string
+    	     	      "\""
+    	     	      "\\\\\""
+    	     	      (match-string 1)))
+    	     (protectedSource (replace-regexp-in-string
+    	     		       "\n"
+    	     		       "\\\\n\",\n\""
+    	     		       source
+			       ; (match-string 1)
+    	     		       ))
+    	     (completeSource (concat "\"" protectedSource "\"\n"))
+    	     (sourcedSource (concat "\"source\": [" completeSource "]"))
+    	    )
+					; (replace-match sourcedSource)
+    	(replace-match sourcedSource t t) 
+    	)
       )
 
     ;; nice indentation:
