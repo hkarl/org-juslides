@@ -128,8 +128,9 @@ This is based on markdown exporter's headline handling"
        ((eq level 1)
 	(concat (org-juslides-cell "markdown"
 			   "slide"
-			   (concat "Some fancy markup for a section start slide \n\n"
-				   heading tags anchor "\n\n")
+			   ;; (concat "Some fancy markup for a section start slide \n\n"
+			   ;; 	   heading tags anchor "\n\n")
+			   (org-juslides-tocslide info heading)
 			   )
 		contents
 		)
@@ -225,6 +226,38 @@ for the very first block we crete (i.e., true suppresses prepending of closing b
     )
   )
 
+(defun org-juslides-tocslide (info &optional current-title scope)
+
+  (let* ((toc
+	  (mapconcat (lambda (entry)
+		       (let* ((number (mapconcat (lambda (x) (format "%d" x))
+						(org-export-get-headline-number
+						 entry
+						 info)
+						"."
+						))
+			      (tmptitle (org-export-get-alt-title entry info))
+			      (strtitle (format "%s" tmptitle))
+			      (title (substring strtitle 1 -1))
+			      (ref (org-export-get-reference entry info))
+			      )
+			 (if (equal title current-title)
+			     (format "- **%s**"  title)
+			   (format "- %s"  title)
+			   )
+			 ; TODO: Get HREFs working, but that seems rather nontrivial: 
+			 ; (format "- <a href=\"%s\">%s</a>"  ref  title)
+			 ))
+		     (org-export-collect-headlines info 1 scope)
+		     "\n"))
+	)
+    (format 
+     "<h1>Overview</h1> 
+
+%s"
+     toc)
+    )
+  )
 
 ;;; High-level funtions
 
@@ -233,9 +266,11 @@ for the very first block we crete (i.e., true suppresses prepending of closing b
 CONTENTS is the transcoded contents string.  INFO is a plist
 holding export options."
   (let ((titleslide (org-juslides-titleslide info))
+	(overviewslide (org-juslides-tocslide info))
 	)
       (format "{
 \"cells\": [
+ %s
  %s 
  %s
   ]]]
@@ -265,6 +300,7 @@ holding export options."
  \"nbformat_minor\": 0
 }"
 	      (org-juslides-cell "markdown" "slide" titleslide t)
+	      (org-juslides-cell "markdown" "slide" overviewslide nil)
 	      contents)))
 
 
