@@ -31,6 +31,8 @@
        ))
   :translate-alist '((headline . org-juslides-headline)
 		     (bold . org-juslides-bold)
+		     (italic . org-juslides-italic)
+		     ; (code . org-juslides-code)
 		     (src-block . org-juslides-src-block)
 		     (inner-template . org-juslides-inner-template)
 		     (latex-fragment . org-juslides-latex-fragment)
@@ -147,7 +149,7 @@ This is based on markdown exporter's headline handling"
 	(concat heading tags anchor "\n"
 		(make-string (length heading) (if (= level 1) ?= ?-))
 		"\n\n"
-		(org-juslides-suround-with-quotation contents)))
+		contents))
        ;; Use "atx" style.
        (t (let ((source (concat (make-string level ?#) " " heading tags anchor "\n\n" contents))
 		)
@@ -167,7 +169,18 @@ This is based on markdown exporter's headline handling"
   "Transcode BOLD object into Markdown format.
 CONTENTS is the text within bold markup.  INFO is a plist used as
 a communication channel."
-  (format "BOLD  **%s**  BOLD" contents))
+  (format "**%s**" contents))
+
+(defun org-juslides-italic (_italics contents _info)
+  "Transcode italics/emphasized object into Markdown format."
+  (format "*%s*" contents))
+
+; not clear, need to look up concrete data structure of "code" objects
+;; (defun org-juslides-code (_object contents _info)
+;;   "Transcode code/fixed-font object into Markdown format."
+;;   (message (gethash "value" (cdr _object)))
+;;   (format "--%s--" contents))
+
 
 
 ;;; Output functions to produce JSON

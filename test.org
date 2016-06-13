@@ -13,7 +13,8 @@ sTart with text?
 - source code 
   - with more indents
 
-With *bold* text  and _empahizsed_ text 
+With *bold* text  and /empahizsed/ text  */and both/* 
+~stuff in fixed font~ 
 
 
 And this one should be animated
@@ -149,3 +150,12 @@ Lorem ipsum dolorsa
 
 - e 
 - f
+
+* Part IV: Tables 
+
+** A slide with a table 
+
+| Kind | Data | Value |
+|------+------+-------|
+| x    | y    | z     |
+| a    | b    | c     |
