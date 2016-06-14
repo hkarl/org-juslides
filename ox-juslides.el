@@ -102,6 +102,8 @@ This is based on markdown exporter's headline handling"
 			    ; add alternative keywords to skip slides? 
 			    )
 			   ))
+	   (subslide (and tags
+			  (string-match "subslide" tags)))
 	   (priority
 	    (and (plist-get info :with-priority)
 		 (let ((char (org-element-property :priority headline)))
@@ -145,8 +147,10 @@ This is based on markdown exporter's headline handling"
        ((eq level 2)
 	(if (not skipslide)
 	    (concat (org-juslides-cell "markdown"
-				       "slide"
-				       (concat "# " heading tags anchor "\n\n" )
+				       (if subslide
+					   "subslide"
+					 "slide")
+				       (concat "# " heading  "\n\n" )
 				       )
 		    contents
 		    )
