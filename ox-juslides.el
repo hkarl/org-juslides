@@ -104,6 +104,8 @@ This is based on markdown exporter's headline handling"
 			   ))
 	   (subslide (and tags
 			  (string-match "subslide" tags)))
+	   (notesslide (and tags
+			  (string-match "notes" tags)))
 	   (priority
 	    (and (plist-get info :with-priority)
 		 (let ((char (org-element-property :priority headline)))
@@ -147,9 +149,10 @@ This is based on markdown exporter's headline handling"
        ((eq level 2)
 	(if (not skipslide)
 	    (concat (org-juslides-cell "markdown"
-				       (if subslide
-					   "subslide"
-					 "slide")
+				       (cond
+					(notesslide "notes")
+					(subslide "subslide")
+					(t "slide"))
 				       (concat "# " heading  "\n\n" )
 				       )
 		    contents
