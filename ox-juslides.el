@@ -96,9 +96,15 @@ This is based on markdown exporter's headline handling"
 			(and tag-list
 			     (format "     :%s:"
 				     (mapconcat 'identity tag-list ":"))))))
+	   (dropslide (and tags
+			   (or 
+			    (string-match "dropslide" tags)
+			    ; add alternative keywords to skip slides? 
+			    )
+			   ))
 	   (skipslide (and tags
 			   (or 
-			    (string-match "notslide" tags)
+			    (string-match "skipslide" tags)
 			    ; add alternative keywords to skip slides? 
 			    )
 			   ))
@@ -147,10 +153,11 @@ This is based on markdown exporter's headline handling"
 	)
        ;; HEadline level 2, i.e., a normal slide? 
        ((eq level 2)
-	(if (not skipslide)
+	(if (not dropslide)
 	    (concat (org-juslides-cell "markdown"
 				       (cond
 					(notesslide "notes")
+					(skipslide "skip")
 					(subslide "subslide")
 					(t "slide"))
 				       (concat "# " heading  "\n\n" )
