@@ -67,11 +67,17 @@
 (defun org-juslides-src-block (src-block contents info)
   (let ( (code (org-export-format-code-default src-block info))
 	 (animate (org-export-read-attribute :attr_juslides src-block :animate))
-	     )
+	 (skipslide (org-export-read-attribute :attr_juslides src-block :skip))
+	 )
+    (print "src block")
+    ;; (print (org-element-lineage src-block '('heading) ))
+    (print animate)
+    (print skipslide)
     (org-juslides-cell "code"
-		       (if animate
-			   "fragment"
-			 "-")
+		       (cond
+			(skipslide "skip")
+			(animate "fragment")
+			(t "-"))
 		       code)
     )
   )
