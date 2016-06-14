@@ -19,9 +19,26 @@ Specifically, Org-mode annotations should enable animations on slides, play nice
 
 ## Installation 
 
-Load ox-juslides.el into emacs and evaluate it. This provides a new backend to org-mode, via which you can produce 
+Load ox-juslides.el into emacs and evaluate it. Or set it up for
+auto-loading. 
 
 ## Usage 
+
+- Evaluating ox-juslides provides a new
+backend to org-mode
+- This backend allows you to produce  iPython / Jupyter
+~.ipynb~ Notebook files
+- Load these notebook files using ~jupyter notebook bla.ipynb~ 
+- To display as slides, you need to have RISE installed. Follow
+  instructions there to display the slide set (easy once set up
+  correctly) 
+  
+  
+
+## Writing useful org files for exporting 
+
+Basically, look at file:test.org ; it has extensive examples with
+comments. 
 
 - First-level headings define Sections in the document; do not use them with content
 - Second-level headings define slides 
