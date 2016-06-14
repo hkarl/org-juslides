@@ -180,7 +180,7 @@ This is based on markdown exporter's headline handling"
 		"\n\n"
 		contents))
        ;; Use "atx" style.
-       (t (let ((source (concat (make-string (- level 1) ?#) " " heading tags anchor "\n\n" contents))
+       (t (let ((source (concat (make-string (- level 1) ?#) " " heading  anchor "\n\n" contents))
 		)
 	    (if (member "animate" tag-list)
 		(org-juslides-cell "markdown" "fragment" source)
@@ -270,8 +270,8 @@ for the very first block we crete (i.e., true suppresses prepending of closing b
 			      (ref (org-export-get-reference entry info))
 			      )
 			 (if (equal title current-title)
-			     (format "- **%s**"  title)
-			   (format "- %s"  title)
+			     (format "1. **%s**"  title)
+			   (format "1. %s"  title)
 			   )
 			 ; TODO: Get HREFs working, but that seems rather nontrivial: 
 			 ; (format "- <a href=\"%s\">%s</a>"  ref  title)
