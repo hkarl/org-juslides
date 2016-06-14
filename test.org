@@ -95,7 +95,11 @@ felis.  Aliquam feugiat tellus ut neque.  Nulla facilisis, risus a
 rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo
 sit amet elit.
 
-** And only on slide					   :noexport:onslide:
+** Ordinary slide 
+
+Just some ordinary slide in the middle to test export suppression 
+
+** And only on slide						   :noexport:
 
 - Fusce sagittis, libero non molestie mollis,
 - magna orci ultrices dolor,

@@ -97,7 +97,11 @@ This is based on markdown exporter's headline handling"
 			     (format "     :%s:"
 				     (mapconcat 'identity tag-list ":"))))))
 	   (skipslide (and tags
-			   (string-match "notslide" tags)))
+			   (or 
+			    (string-match "notslide" tags)
+			    ; add alternative keywords to skip slides? 
+			    )
+			   ))
 	   (priority
 	    (and (plist-get info :with-priority)
 		 (let ((char (org-element-property :priority headline)))
