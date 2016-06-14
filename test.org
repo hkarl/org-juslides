@@ -1,45 +1,125 @@
 #+TITLE: A test presentation for Jupyter 
 
-* Part I 
+** Setup							  :skipslide:
+
+This slide should not be shown (skipped) and should not appear in
+LaTeX export either. This still needs work. 
+
+Main point here is to set up warnings properly for presentation and to
+load tutormagic, so that we can later on use pythontutor for code
+animations. 
+   
+#+ATTR_JUSLIDES: :skip t 
+#+BEGIN_SRC  Python 
+%load_ext tutormagic
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='.*/IPython/.*')
+#+END_SRC
+
+* Ordinary markup 
 
 ** Slide with normal markup  
 
-sTart with text? 
+We can start a slide with some text 
+
+Itemized lists work as expected 
+
+- List item 
+  - A sub item 
+- and some 
+- more list entries  
+  - with more sub entries
+  - the curse of Powerpoint! 
+
+** Font markup 
 
 
-- and here 
-  - subitem 
-- comes
-- source code 
-  - with more indents
+- With *bold* text
+- and /empahizsed/ text
+- and */and both/* 
+- as well as font for code: ~stuff in fixed font~ 
 
-With *bold* text  and /empahizsed/ text  */and both/* 
-~stuff in fixed font~ 
+** Other markup 
 
-** Slide with source code 
+- Other markup should work as expected 
+- Especially, LaTeX markup
+  - $x = \sin(x)$
+  - $k = \sum_{i=0}^n i^2$
+- External links
+  - Platin: http://www.python.org
+  - With description: [[http://www.python.org][Python rules]]
 
 
+* Subtitles and basic animations 
 
-And animated source code 
+** A slide with subtitles 
+
+Some text 
+
+*** A subtitle
+
+Some more text 
+
+** A slide with animations 
+
+- Subtitles can act as "click points" 
+- Just give them a tag animate 
+
+*** This shows up with a click					    :animate:
+
+- There we are! 
+
+** Animations in text 
+
+- Animating list elements does not yet work 
+- But would be nice
+- On the TODO list 
+- Idea is something like this: 
+  - bla
+#+ANIMATE:
+- bla1 
+  - bl2
+
+
+* Source code 
+  
+** Ordinary source code 
+
+#+BEGIN_SRC pyhton 
+x = [1,2, 3, 6, 7, 8]
+for xx in x:
+    print (x)
+#+END_SRC
+
+
+** Animated source code 
+
+We can show source code only with a click 
 
 #+ATTR_JUSLIDES: :animate t 
+#+CAPTION: This is a source code caption 
 #+BEGIN_SRC python
-x = [5, 7, 19]
-x = 2*x
-print(x)
+  x = [5, 7, 19]
+  for xx in x:
+      y = xx
+      print (y)
 #+END_SRC
 
 
 
+** Even two source blocks on one slide 
 
-** Slide with subtitles 
-   :PROPERTIES:
-   :animate: 1
-   :END:
 
-- a
-- b 
+#+CAPTION: This is a source code caption 
+#+BEGIN_SRC python
+  x = [5, 7, 19]
+  for xx in x:
+      y = xx
+      print (y)
+#+END_SRC
 
+
+#+ATTR_JUSLIDES: :animate t 
 #+BEGIN_SRC python
 x = 17
 x = 3*x
@@ -47,40 +127,64 @@ print(x)
 #+END_SRC
 
 
-*** Subtitle 
+** And source code linking to pythontutor 
+
+Perhaps the raison d'être for this backend: Source code with
+Pythontutor! 
+
+#+ATTR_JUSLIDES: :animate t
+#+CAPTION: This is a source code with pyhtontutor 
+#+BEGIN_SRC python
+  %%tutor --lang python3
+  x = [5, 7, 19]
+  for xx in x:
+      y = xx
+      print (y)
+#+END_SRC
 
 
-some text 
 
-* Part II : Includes and excludes 
 
-** Not on slide							   :notslide:
+* Includes and excludes 
 
-This slide should not appear on the slide output 
 
-But in the notmal output 
+** Goal 
+
+- Easily keep text in the ORG file to be shown in (e.g.) LaTeX output 
+- But not on slides 
+- And possible vice versa 
+
+** Approach 
+
+- Provide two tags
+  - ~:dropslide:~ to drop a slide entirely from the generate notebook
+  - ~:skipslide:~ to keep it in the notebook, but assign the "skip"
+    property to it 
+
+** Not in notebook 						  :dropslide:
+
+- This slide should not appear in the generated notebook 
+- But in the notmal output like LaTeX
+
+** In notebook, but not shown in a presentation			  :skipslide:
+
+- This will not show up 
 
 *** Subtitles on skipped slide 
 
-This should not appear, either 
+- This should not appear, either 
+- Thanks to tag inheritance in org-mode's export backends! 
 
 ** Again on slide 
 
 And another slide, back on all outputs 
 
-** A slide with animations 
-
-- bla
-#+ANIMATE:
-- bla1 
-- bl2
 
 
+** Neither on slide, nor on output				      :notes:
 
-
-
-
-** Neither on slide, nor on output				   :noexport:
+Notes slides: great for lot's of text. Also not shown in
+presentation. (Difference to skip not yet clear to me?) 
 
 Pellentesque dapibus suscipit ligula.  Donec posuere augue in quam.
 Etiam vel tortor sodales tellus ultricies commodo.  Suspendisse
@@ -101,6 +205,8 @@ Just some ordinary slide in the middle to test export suppression
 
 ** And only on slide						   :noexport:
 
+This slide will be totally suppressed because of noexport. 
+
 - Fusce sagittis, libero non molestie mollis,
 - magna orci ultrices dolor,
 - at vulputate neque nulla lacinia eros.
@@ -109,16 +215,18 @@ Just some ordinary slide in the middle to test export suppression
 
 ** Normal slide in this section 
 
-- sdfs
-- sdf sd fsdf 
-- sdfsdfsd 
+- Just to show this will show up again 
+- More text here 
 
-* Part III: Subslides 
+
+* Subslides 
 
 ** A normal slide 
 
-- a 
-- g 
+- RISE has a notion of subslides 
+- Will be display as a "vertical extension" of the main narrative
+  track 
+- Just give a tag ~:subslide:~ to a slide heading 
 
 ** A subslide							   :subslide:
 
@@ -133,32 +241,12 @@ Just some ordinary slide in the middle to test export suppression
 
 ** And a normal slide 
 
+- This slide is back in the ordinary track 
 - h 
 - i 
 
 
-** A slide heading 
-
-
-This is *bold* text 
-
-This is a another paragraph 
-
-And LaTeX markup: $x = \sin(x)$ 
-
-- bla 
-- bla 
-
-Some text before the next heading 
-
-Lorem ipsum dolorsa 
-
-*** Another subtitle 
-
-- e 
-- f
-
-* Part IV: Tables 
+* Tables, Images, ... 
 
 ** A slide with a table 
 
@@ -166,3 +254,14 @@ Lorem ipsum dolorsa
 |------+------+-------|
 | x    | y    | z     |
 | a    | b    | c     |
+
+
+** A slide with an image 
+
+This should be an image from a file 
+
+#+CAPTION: A figure caption 
+#+NAME: fig:test-image
+[[./figures/upb.png]]
+
+
