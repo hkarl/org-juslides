@@ -2,16 +2,10 @@
 
 ** First heading 
 
+$x = \sin(x)$ 
+
+
 This is first para
 
 This is second para
-
-** A Second slide 
-
-- sd
-- sdfwef
-- dfgdfg 
-  - sdfsdfsd
-  - sdfsdf 
-- sfdsf
 
