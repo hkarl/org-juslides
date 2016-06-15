@@ -2,14 +2,10 @@
 
 ** Setup							  :skipslide:
 
-This slide should not be shown (skipped) and should not appear in
-LaTeX export either. This still needs work. 
-
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
 animations. 
    
-#+ATTR_JUSLIDES: :skip t 
 #+BEGIN_SRC  Python 
 %load_ext tutormagic
 import warnings
@@ -264,7 +260,7 @@ This should be an image from a file
 #+NAME: fig:test-image
 [[./figures/upb.png]]
 
-** Trying a ditaa file
+** Trying a ditaa file						  :dropslide:
 
    
 #+CAPTION: A few queues 

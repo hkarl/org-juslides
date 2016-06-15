@@ -65,12 +65,16 @@
   )
 
 (defun org-juslides-src-block (src-block contents info)
-  (let ( (code (org-export-format-code-default src-block info))
+  (let* ( (code (org-export-format-code-default src-block info))
 	 (animate (org-export-read-attribute :attr_juslides src-block :animate))
-	 (skipslide (org-export-read-attribute :attr_juslides src-block :skip))
+	 (tags (org-export-get-tags (org-export-get-parent-headline src-block) info '("invalid" "tags") t))
+	 (skipslide (or (member "skipslide" tags)
+			(org-export-read-attribute :attr_juslides src-block :skip)
+			))
 	 )
     (print "src block")
     ;; (print (org-element-lineage src-block '('heading) ))
+    (print tags)
     (print animate)
     (print skipslide)
     (org-juslides-cell "code"
