@@ -72,11 +72,6 @@
 			(org-export-read-attribute :attr_juslides src-block :skip)
 			))
 	 )
-    (print "src block")
-    ;; (print (org-element-lineage src-block '('heading) ))
-    (print tags)
-    (print animate)
-    (print skipslide)
     (org-juslides-cell "code"
 		       (cond
 			(skipslide "skip")
