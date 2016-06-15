@@ -248,8 +248,15 @@ for the very first block we crete (i.e., true suppresses prepending of closing b
 (defun org-juslides-titleslide (info)
   (let ( (titlestr   (org-export-data (plist-get info :title) info))
 	 (author   (org-export-data (plist-get info :author) info))
+	 (subtitle 
+	  (let ((tmp (plist-get info :subtitle))
+		)
+	    (if tmp
+	 	(org-export-data tmp info)
+	      "KEIN UNTERTITEL")
+	  ))
 	)
-    (concat "<h1>" titlestr "</h1>\n<p><p><h2>" author "</h2>")
+    (concat "<h1>" titlestr "</h1>\n<p>" subtitle "<p><h2>" author "</h2>" )
     )
   )
 
@@ -269,7 +276,7 @@ for the very first block we crete (i.e., true suppresses prepending of closing b
 			      (ref (org-export-get-reference entry info))
 			      )
 			 (if (equal title current-title)
-			     (format "1. **%s**"  title)
+			     (format "1. **<font color=\"red\">%s</font>**"  title)
 			   (format "1. %s"  title)
 			   )
 			 ; TODO: Get HREFs working, but that seems rather nontrivial: 

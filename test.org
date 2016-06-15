@@ -1,4 +1,6 @@
 #+TITLE: A test presentation for Jupyter 
+#+SUBTITLE: And a nice subtitle 
+
 
 ** Setup							  :skipslide:
 
