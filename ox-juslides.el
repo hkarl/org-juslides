@@ -17,6 +17,26 @@
 ;; so far, nothing to customize yet :-/ 
 
 
+;;; Suppress LaTeX output only
+
+(defun org-juslides-export-change-options (plist backend)
+  (let ( (oldlist (plist-get plist :exclude-tags))
+	 )
+    (cond
+     ((equal backend 'latex)
+      (plist-put plist :exclude-tags
+		 (add-to-list 'oldlist '"nolatex")))
+     ((equal backend 'juslides)
+      (plist-put plist :exclude-tags
+		 (add-to-list 'oldlist '"dropslide" )))
+     )
+    )
+  (print (plist-get plist :exclude-tags))
+  plist 
+  )
+
+(add-to-list 'org-export-filter-options-functions 'org-juslides-export-change-options)
+
 
 ;;; Define Back-End
 
@@ -101,12 +121,6 @@ This is based on markdown exporter's headline handling"
 			(and tag-list
 			     (format "     :%s:"
 				     (mapconcat 'identity tag-list ":"))))))
-	   (dropslide (and tags
-			   (or 
-			    (string-match "dropslide" tags)
-			    ; add alternative keywords to skip slides? 
-			    )
-			   ))
 	   (skipslide (and tags
 			   (or 
 			    (string-match "skipslide" tags)
@@ -158,17 +172,15 @@ This is based on markdown exporter's headline handling"
 	)
        ;; HEadline level 2, i.e., a normal slide? 
        ((eq level 2)
-	(if (not dropslide)
-	    (concat (org-juslides-cell "markdown"
-				       (cond
-					(notesslide "notes")
-					(skipslide "skip")
-					(subslide "subslide")
-					(t "slide"))
-				       (concat "# " heading  "\n\n" )
-				       )
-		    contents
-		    )
+	(concat (org-juslides-cell "markdown"
+				   (cond
+				    (notesslide "notes")
+				    (skipslide "skip")
+				    (subslide "subslide")
+				    (t "slide"))
+				   (concat "# " heading  "\n\n" )
+				   )
+		contents
 	  )
 	)
        ;; Ordinary processing
@@ -253,7 +265,7 @@ for the very first block we crete (i.e., true suppresses prepending of closing b
 		)
 	    (if tmp
 	 	(org-export-data tmp info)
-	      "KEIN UNTERTITEL")
+	      "")
 	  ))
 	)
     (concat "<h1>" titlestr "</h1>\n<p>" subtitle "<p><h2>" author "</h2>" )
