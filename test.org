@@ -143,6 +143,22 @@ Pythontutor!
 
 
 
+** And a Java example 
+
+#+BEGIN_SRC java 
+public static void main 
+
+#+END_SRC
+
+** And a C example 
+
+#+BEGIN_SRC C
+
+  int main () {
+    return -1;
+  }
+#+END_SRC
+
 * Includes and excludes 
 
 
@@ -262,4 +278,34 @@ This should be an image from a file
 #+NAME: fig:test-image
 [[./figures/upb.png]]
 
+
+
+* Experimental markup 
+
+** Slido links 
+
+TODO
+
+
+** Dot files 
+#+BEGIN_SRC dot :file dot_success.pdf
+  digraph {
+  // graph from left to right
+  rankdir=LR;
+  splines=true;
+  node [shape=box];
+ 
+  id [label="Install Graphviz"]
+  conf [label="Configure org-babel"]
+  dot [label="DOT in org-mode"]
+ 
+  id -> conf
+  conf -> dot
+  dot -> "Profit"
+  dot -> "Success" [style=dotted]
+  }
+#+END_SRC
+
+#+RESULTS:
+[[file:dot_success.pdf]]
 
