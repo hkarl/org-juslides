@@ -138,10 +138,12 @@ This is based on markdown exporter's headline handling"
 	   ;; 		   ))
 	   (skipslide (member "skipslide" (org-export-get-tags headline info) ))
 	   (animateslide (member "animate" (org-export-get-tags headline info) ))
-	   (subslide (and tags
-			  (string-match "subslide" tags)))
-	   (notesslide (and tags
-			  (string-match "notes" tags)))
+	   (notesslide (member "notes" (org-export-get-tags headline info) ))
+	   (subslide (member "subslide" (org-export-get-tags headline info) ))
+	   ;; (subslide (and tags
+	   ;; 		  (string-match "subslide" tags)))
+	   ;; (notesslide (and tags
+	   ;; 		  (string-match "notes" tags)))
 	   (priority
 	    (and (plist-get info :with-priority)
 		 (let ((char (org-element-property :priority headline)))
@@ -204,11 +206,18 @@ This is based on markdown exporter's headline handling"
        ;; Use "atx" style.
        (t (let ((source (concat (make-string (- level 1) ?#) " " heading  anchor "\n\n" contents))
 		)
-	    ; (if (member "animate" tag-list)
-	    (if animateslide
-		(org-juslides-cell "markdown" "fragment" source)
-	      (org-juslides-cell "markdown" "-" source)
-	      )
+	    ;; (if animateslide
+	    ;; 	(org-juslides-cell "markdown" "fragment" source)
+	    ;;   (org-juslides-cell "markdown" "-" source)
+	    ;;   )
+	    (org-juslides-cell "markdown"
+			       (cond
+				(animateslide "fragment")
+				(notesslide "notes")
+				(t "-")
+				)
+			       source
+			       )
 	    ))
        ;; No further alternatives 
        ))
