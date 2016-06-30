@@ -15,7 +15,7 @@
 
 
 ;; so far, nothing to customize yet :-/ 
-
+;; TODO: add proper customization variables 
 
 ;;; Suppress LaTeX output only
 
@@ -42,7 +42,9 @@
 
 (org-export-define-derived-backend 'juslides 'md
   ; :export-block '("JUSLIDES" "JUSLIDES NOTEBOOK")
-  :filters-alist '((:filter-final-output . org-juslides-final-function))
+  :filters-alist '((:filter-final-output . org-juslides-final-function)
+		   ; (:filter-link . org-juslides-filter-link)
+		   )
   :menu-entry
   '(?s "Export to Jupyter Notebook as Slides"
        ((?b "As temporary MD buffer" 
@@ -60,6 +62,11 @@
 		     ; TODO: Make sure to set org-html-with-latex to verbatim for this to work! 
 		     )
   )
+
+
+;;; Filters
+
+;; none needed so far
 
 
 ;;; Translators
@@ -92,6 +99,8 @@
 			(org-export-read-attribute :attr_juslides src-block :skip)
 			))
 	 )
+    (message "juslides-src")
+    (print code)
     (org-juslides-cell "code"
 		       (cond
 			(skipslide "skip")
@@ -357,6 +366,31 @@ holding export options."
   (with-temp-buffer
     (insert contents)
     (goto-char (point-min))
+    ;; replace the links to figures TODO: build the pngs out of it
+    (while (re-search-forward "\\(<figures/\\(.*?\\)\\.pdf>\\)" nil t)
+      (let* ( (filebase (match-string 2))
+	      (pdffile (format "figures/%s.pdf" filebase))
+	      (pngfile (format "figures/%s.png" filebase))
+	      )
+    	(replace-match (format "![imgimg](figures/%s.png)"
+    			       (match-string 2)
+    			       t t))
+	(message pdffile)
+	(message pngfile)
+    	(when (file-newer-than-file-p  pdffile pngfile)
+	  (message "run convert on pdf")
+	  (let ( (convertcommand (format "convert -density 300 %s %s"
+					 pdffile
+					 pngfile)))
+	    (message "command is ")
+	    (message convertcommand)
+	    (shell-command convertcommand)
+	    )
+    	  )
+    	)
+      )
+    
+    (goto-char (point-min))
     ;; process the source instructions: 
     (while (re-search-forward "\"source\": \\[\\[\\[\\(\\(.\\|\n\\)*?\\)\\]\\]\\]" nil t)
     					; (replace-match decorated)
@@ -431,5 +465,9 @@ non-nil."
     async subtreep visible-only nil nil (lambda () (json-mode)))  
   )
 
+
+
+
+;;;----------------
 (provide 'ox-juslides)
   

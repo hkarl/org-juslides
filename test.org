@@ -1,6 +1,7 @@
 #+TITLE: A test presentation for Jupyter 
 #+SUBTITLE: And a nice subtitle 
-
+#+OPTIONS: tags:nil
+#+LANGUAGE: en
 
 ** Setup							  :skipslide:
 
@@ -109,7 +110,7 @@ We can show source code only with a click
 
 
 #+CAPTION: This is a source code caption 
-#+BEGIN_SRC python
+#+BEGIN_SRC python :exports both 
   x = [5, 7, 19]
   for xx in x:
       y = xx
@@ -287,6 +288,34 @@ This should be an image from a file
 [[./figures/upb.png]]
 
 
+** Tikz test 
+
+A normal link to some website  [[http://www.heise.de][Heise]] 
+
+#+header: :imagemagick yes :iminoptions -density 600 :imoutoptions -geometry 200 
+#+header: :cache yes
+#+begin_src latex :exports results :results output raw :file figures/tikz.png :fit t
+  \usetikzlibrary{trees}
+  \begin{tikzpicture}
+    \node [circle, draw, fill=red!20] at (0,0) {1} child { node
+      [circle, draw, fill=blue!30] {2} child { node [circle, draw,
+        fill=green!30] {3} } child { node [circle, draw,
+        fill=yellow!30] {4} }};
+  \end{tikzpicture}
+#+end_src
+
+
+#+NAME: tikzfigure
+#+CAPTION: latex tikz caption
+#+ATTR_LATEX: :width 0.1\textwidth 
+#+RESULTS[88a50bc9a0a4a438435380494888243759e62272]:
+[[file:figures/tikz.png]]
+
+
+The tikz result should be visible in Figure [[tikzfigure]]. 
+
+
+
 * Experimental markup 
 
 ** Slido links 
@@ -295,7 +324,7 @@ TODO
 
 
 ** Dot files 
-#+BEGIN_SRC dot :file dot_success.pdf
+#+BEGIN_SRC dot :file dot_success.png
   digraph {
   // graph from left to right
   rankdir=LR;
@@ -313,6 +342,8 @@ TODO
   }
 #+END_SRC
 
+
 #+RESULTS:
-[[file:dot_success.pdf]]
+[[file:dot_success.png]]
+
 
