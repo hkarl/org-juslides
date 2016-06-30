@@ -130,12 +130,14 @@ This is based on markdown exporter's headline handling"
 			(and tag-list
 			     (format "     :%s:"
 				     (mapconcat 'identity tag-list ":"))))))
-	   (skipslide (and tags
-			   (or 
-			    (string-match "skipslide" tags)
-			    ; add alternative keywords to skip slides? 
-			    )
-			   ))
+	   ;; (skipslide (and tags
+	   ;; 		   (or 
+	   ;; 		    (string-match "skipslide" tags)
+	   ;; 		    ; add alternative keywords to skip slides? 
+	   ;; 		    )
+	   ;; 		   ))
+	   (skipslide (member "skipslide" (org-export-get-tags headline info) ))
+	   (animateslide (member "animate" (org-export-get-tags headline info) ))
 	   (subslide (and tags
 			  (string-match "subslide" tags)))
 	   (notesslide (and tags
@@ -202,7 +204,8 @@ This is based on markdown exporter's headline handling"
        ;; Use "atx" style.
        (t (let ((source (concat (make-string (- level 1) ?#) " " heading  anchor "\n\n" contents))
 		)
-	    (if (member "animate" tag-list)
+	    ; (if (member "animate" tag-list)
+	    (if animateslide
 		(org-juslides-cell "markdown" "fragment" source)
 	      (org-juslides-cell "markdown" "-" source)
 	      )
