@@ -345,6 +345,10 @@ holding export options."
 ],
  \"metadata\": {
   \"celltoolbar\": \"Slideshow\",
+  \"livereveal\": {
+        \"theme\": \"simple\",
+        \"transition\": \"none\"
+    },
   \"kernelspec\": {
    \"display_name\": \"Python 3\",
    \"language\": \"python\",
