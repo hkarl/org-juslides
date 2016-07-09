@@ -32,7 +32,7 @@
 ;;   )
 
 (defcustom org-export-juslides-divs-heading-pre
-  '(("theorem" "<div class=\"theorem-head\">")
+  '(("theorem" "<center> <div class=\"theorem-head\" style=\"border:2px; border-style:solid; border-color:#00FF00; padding: 1em; background-color:lightgreen; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\">")
     ("proof" "<div class=\"proof-head\">")
     )
   "Divs to go before the heading"
@@ -41,7 +41,7 @@
   )
 
 (defcustom org-export-juslides-divs-heading-post
-  '(("theorem" "</div>")
+  '(("theorem" "</div></center>")
     ("proof" "</div>")
     )
   "Divs to go after the heading"
@@ -50,7 +50,7 @@
   )
 
 (defcustom org-export-juslides-divs-content-pre
-  '(("theorem" "<div class=\"theorem-content\">")
+  '(("theorem" "<center><div class=\"theorem-content\" style=\"border:2px; border-style:solid; border-color:#00FF00; padding: 1em; margin-top: 0; border-radius: 0px 0px 15px 15px; width: 80%;\">")
     ("proof" "<div class=\"proof-content\">")
     )
   "Divs to go before the content"
@@ -60,7 +60,7 @@
 
 
 (defcustom org-export-juslides-divs-content-post
-  '(("theorem" "</div>")
+  '(("theorem" "</div></center>")
     ("proof" "</div>")
     )
   "Divs to go after the content"
@@ -522,7 +522,7 @@ holding export options."
 	      (pdffile (format "figures/%s.pdf" filebase))
 	      (pngfile (format "figures/%s.png" filebase))
 	      )
-    	(replace-match (format "![imgimg](figures/%s.png)"
+    	(replace-match (format "<center>![imgimg](figures/%s.png)</center>"
     			       (match-string 2)
     			       t t))
 	(message pdffile)
@@ -538,6 +538,13 @@ holding export options."
 	    )
     	  )
     	)
+      )
+    (goto-char (point-min))
+    ;; center figures
+    (while (re-search-forward "\\!\\[img\\]\\(\\(.*\\)\\)" nil t)
+      (replace-match (concat "<center>![img]"
+			     (match-string 1)
+			     "</center>"))
       )
     
     (goto-char (point-min))
