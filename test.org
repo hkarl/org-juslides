@@ -347,3 +347,16 @@ TODO
 [[file:dot_success.png]]
 
 
+
+* Beamer markup tests 
+
+** A slide with a beamer block 
+
+This is text before the block. 
+
+*** A theorem title 						  :B_theorem:
+    :PROPERTIES:
+    :BEAMER_env: theorem
+    :END:
+
+and this is the famous theorem 
