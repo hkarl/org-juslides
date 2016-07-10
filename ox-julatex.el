@@ -47,6 +47,8 @@
 (defun org-julatex-headline (headline contents info)
   (let* ((tags-list (org-export-get-tags headline info))
 					; get only those tags that start with B_ for Beamer tag
+	 (no-latex (-filter (lambda (x) (string-prefix-p "nolatex" x))
+			       tags-list))
 	 (beamer-tags (-filter (lambda (x) (string-prefix-p "B_" x))
 			       tags-list))
 					; let's for now assume there is just a single beamer tag per block heading
@@ -55,11 +57,10 @@
 			 (substring tmp-beamer-tag 2)
 		       nil))
 	 )
-    
-    (message "julatex-headline")
-    (print headline)
 
-    (if beamer-tag
+    (cond
+     (no-latex "")
+     (beamer-tag
 	(let* ((plainlabel (org-latex--label headline info))
 	       (labelstr (if plainlabel
 			     (format "\\label{%s}\n" plainlabel)
@@ -73,8 +74,8 @@
 		  contents
 		  beamer-tag
 		  )
-	  )
-      (org-latex-headline headline contents info)
+	  ))
+     (t (org-latex-headline headline contents info))
     )
   ))
 
