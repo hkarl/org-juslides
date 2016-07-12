@@ -1,9 +1,11 @@
-#+TITLE: A test presentation for Jupyter 
+#+TITLE: A test presentation for Jupyter
+#+INCLUDE: "header.org" :minlevel 2
+ 
 #+SUBTITLE: And a nice subtitle 
 #+OPTIONS: tags:nil
 #+LANGUAGE: en
 
-** Setup							  :skipslide:
+** Setup						  :skipslide:nolatex:
 
 Main point here is to set up warnings properly for presentation and to
 load tutormagic, so that we can later on use pythontutor for code
@@ -84,7 +86,7 @@ Some more text
   
 ** Ordinary source code 
 
-#+BEGIN_SRC pyhton 
+#+BEGIN_SRC python 
 x = [1,2, 3, 6, 7, 8]
 for xx in x:
     print (x)
