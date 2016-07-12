@@ -32,13 +32,13 @@
 ;;   )
 
 (defcustom org-export-juslides-divs-heading-pre
-  '(("theorem" "<center> <div class=\"theorem-head\" style=\"border:2px; border-style:solid; border-color:#00FF00; padding: 1em; background-color:lightgreen; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\">")
-    ("proof" "<div class=\"proof-head\">")
-    ("example" "<div class=\"example-head\">")
-    ("note" "<div class=\"note-head\">")
-    ("definition" "<div class=\"definition-head\">")
-    ("quote" "<div class=\"quote-head\">")
-    ("alertblock" "<div class=\"alertblock-head\">")
+  '(("theorem" "<center> <div class=\"theorem-head\" style=\"border:3px; border-style:solid; border-color:#c8bcdd; padding: 1em; background-color:#c8bcdd;  line-height:1.5em; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\"><b>Satz: ")
+    ("proof" "<center> <div class=\"proof-head\" style=\"border:3px; border-style:solid; border-color:#c8bcdd; padding: 1em; background-color:#c8bcdd;  line-height:1.5em; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\"><b>Beweis: ") 
+    ("example" "<center> <div class=\"example-head\" style=\"border:3px; border-style:solid; border-color:#99d19c; padding: 1em; background-color:#99d19c;  line-height:1.5em; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\"><b>Beispiel: ") 
+    ("note" "<center> <div class=\"note-head\" style=\"border:3px; border-style:solid; border-color:#d1cfcf; padding: 1em; background-color:#d1cfcf;  line-height:1.5em; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\"><b>Bemerkung: ") 
+    ("definition" "<center> <div class=\"definition-head\" style=\"border:3px; border-style:solid; border-color:#5da9e9; padding: 1em; background-color:#5da9e9;  line-height:1.5em; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\"><b>Definition: ") 
+    ("quote" "<center> <div class=\"quote-head\" style=\"border:3px; border-style:solid; border-color:#d1cfcf; padding: 1em; background-color:#d1cfcf;  line-height:1.5em; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\"><b>Zitat: ") 
+    ("alertblock" "<center> <div class=\"alertblock-head\" style=\"border:3px; border-style:solid; border-color:#f96900; padding: 1em; background-color:#f96900;  line-height:1.5em; text-align:center; border-radius: 15px 15px 0px 0px; margin-bottom: 0; width: 80%;\"><b>Achtung! ") 
     )
   "Divs to go before the heading"
   :type '(alist :key-type string
@@ -46,13 +46,13 @@
   )
 
 (defcustom org-export-juslides-divs-heading-post
-  '(("theorem" "</div></center>")
-    ("proof" "</div>")
-    ("example" "</div>")
-    ("note" "</div>")
-    ("definition" "</div>")
-    ("quote" "</div>")
-    ("alertblock" "</div>")
+  '(("theorem" "</b></div>")
+    ("proof" "</b></div>")
+    ("example" "</b></div>")
+    ("note" "</b></div>")
+    ("definition" "</b></div>")
+    ("quote" "</b></div>")
+    ("alertblock" "</b></div>")
     )
   "Divs to go after the heading"
   :type '(alist :key-type string
@@ -60,13 +60,13 @@
   )
 
 (defcustom org-export-juslides-divs-content-pre
-  '(("theorem" "<center><div class=\"theorem-content\" style=\"border:2px; border-style:solid; border-color:#00FF00; padding: 1em; margin-top: 0; border-radius: 0px 0px 15px 15px; width: 80%;\">")
-    ("proof" "<div class=\"proof-content\">")
-    ("example" "<div class=\"example-content\">")
-    ("note" "<div class=\"note-content\">")
-    ("definition" "<div class=\"definition-content\">")
-    ("quote" "<div class=\"quote-content\">")
-    ("alertblock" "<div class=\"-content\">")
+  '(("theorem" "<div class=\"theorem-content\" style=\"border:3px; border-style:solid; border-color:#c8bcdd; padding: 1em; margin-top: 0;  line-height:1.5em; border-radius: 0px 0px 15px 15px; width: 80%; text-align:left;\"> ")
+    ("proof" "<div class=\"proof-content\" style=\"border:3px; border-style:solid; border-color:#c8bcdd; padding: 1em; margin-top: 0;  line-height:1.5em; border-radius: 0px 0px 15px 15px; width: 80%; text-align:left\"> ")
+    ("example" "<div class=\"example-content\" style=\"border:3px; border-style:solid; border-color:#99d19c; padding: 1em; margin-top: 0;  line-height:1.5em; border-radius: 0px 0px 15px 15px; width: 80%; text-align:left\"> ")
+    ("note" "<div class=\"note-content\" style=\"border:3px; border-style:solid; border-color:#d1cfcf; padding: 1em; margin-top: 0;  line-height:1.5em; border-radius: 0px 0px 15px 15px; width: 80%; text-align:left\"> ")
+    ("definition" "<div class=\"definition-content\" style=\"border:3px; border-style:solid; border-color:#5da9e9; padding: 1em; margin-top: 0;  line-height:1.5em; border-radius: 0px 0px 15px 15px; width: 80%; text-align:left\"> ")
+    ("quote" "<div class=\"quote-content\" style=\"border:3px; border-style:solid; border-color:#d1cfcf; padding: 1em; margin-top: 0;  line-height:1.5em; border-radius: 0px 0px 15px 15px; width: 80%; text-align:left\"> ")
+    ("alertblock" "<div class=\"alertblock-content\" style=\"border:3px; border-style:solid; border-color:#f96900; padding: 1em; margin-top: 0;  line-height:1.5em; border-radius: 0px 0px 15px 15px; width: 80%; text-align:left\"> ")
     )
   "Divs to go before the content"
   :type '(alist :key-type string
@@ -76,12 +76,12 @@
 
 (defcustom org-export-juslides-divs-content-post
   '(("theorem" "</div></center>")
-    ("proof" "</div>")
-    ("example" "</div>")
-    ("note" "</div>")
-    ("definition" "</div>")
-    ("quote" "</div>")
-    ("alertblock" "</div>")
+    ("proof" "</div></center>")
+    ("example" "</div></center>")
+    ("note" "</div></center>")
+    ("definition" "</div></center>")
+    ("quote" "</div></center>")
+    ("alertblock" "</div></center>")
     )
   "Divs to go after the content"
   :type '(alist :key-type string

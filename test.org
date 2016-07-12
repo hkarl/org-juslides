@@ -77,7 +77,7 @@ Some more text
   - bla
 #+ANIMATE:
 - bla1 
-  - bl2
+- bl2
 
 
 * Source code 
@@ -354,9 +354,100 @@ TODO
 
 This is text before the block. 
 
+- and a 
+- list with 
+- three items 
+
+
 *** A theorem title 						  :B_theorem:
     :PROPERTIES:
     :BEAMER_env: theorem
     :END:
 
 and this is the famous theorem 
+
+- and a 
+- list with 
+- three items 
+
+$x = \sin(x)$ 
+
+
+** A slide with a beamer block 
+
+This is text before the block. 
+
+- and 
+- a list 
+
+*** A proof title 						    :B_proof:
+    :PROPERTIES:
+    :BEAMER_env: proof
+    :END:
+
+and this is the famous theorem 
+
+** A slide with a beamer block 
+
+This is text before the block. 
+
+*** A example title 						  :B_example:
+    :PROPERTIES:
+    :BEAMER_env: example
+    :END:
+
+and this is the famous theorem 
+
+
+** A slide with a beamer block 
+
+This is text before the block. 
+
+*** A note title 						     :B_note:
+    :PROPERTIES:
+    :BEAMER_env: note
+    :END:
+
+and this is the famous theorem 
+
+
+** A slide with a beamer block 
+
+This is text before the block. 
+
+*** A definition title 					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+and this is the famous theorem 
+
+
+** A slide with a beamer block 
+
+This is text before the block. 
+
+*** A quote  title 						    :B_quote:
+    :PROPERTIES:
+    :BEAMER_env: quote
+    :END:
+
+and this is the famous theorem 
+
+
+
+** A slide with a beamer block 
+
+This is text before the block. 
+
+*** A alertblock  title					       :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+
+and this is the famous theorem 
+
+bulum eu lectus venenatis, sit orci eget in diamlorem sed. Scelerisque
+per tortor mi urna enim, in risus ipsum, in pellentesque minima at
+tempor, ornare at tincidunt eros a et, venenatis risus incidunt ornare
+diam lectus.
