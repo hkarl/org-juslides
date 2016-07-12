@@ -116,3 +116,5 @@
 ;; ")
 
 ;;   (org-export-to-buffer 'julatex "*julatex backend export*" nil nil nil t))
+
+(provide 'ox-julatex)
