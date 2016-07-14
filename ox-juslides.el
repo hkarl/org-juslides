@@ -241,21 +241,26 @@ Check for possible BEAMER tags!"
 	 (content_post_div (org-juslides-get-div beamer-tag "content" "post"))
 	 )
     (message "juslides-format-content")
+    ; (print heading)
+    (print level)
     (print beamer-tag)
     (concat
-     (if heading_pre_div
+     (if (string= heading_pre_div "")
 	 (concat 
-	  heading_pre_div
+	  (make-string (- level 1) ?#)
+	  " "
 	  heading
 	  anchor
-	  heading_post_div
 	  )
        (concat 
-	(make-string (- level 1) ?#)
-	" "
+	heading_pre_div
+	; (make-string (- level 1) ?#)
+	; " "
 	heading
 	anchor
-	))
+	heading_post_div
+	)
+       )
      "\n\n"
      content_pre_div
      contents

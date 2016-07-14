@@ -285,8 +285,9 @@ This slide appears nowhere
 
 This should be an image from a file 
 
+#+NAME: fig:test-image 
 #+CAPTION: A figure caption 
-#+NAME: fig:test-image
+#+ATTR_LATEX: :width 0.3\textwidth 
 [[./figures/upb.png]]
 
 
