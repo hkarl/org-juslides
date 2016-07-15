@@ -166,6 +166,13 @@
     )
   )
 
+(defun s-trim-right (s)
+  "Remove whitespace at the end of S."
+  (if (string-match "[ \t\n\r]+\\'" s)
+      (replace-match "" t t s)
+    s))
+
+
 (defun org-juslides-src-block (src-block contents info)
   (let* ( (code (org-export-format-code-default src-block info))
 	 (animate (org-export-read-attribute :attr_juslides src-block :animate))
@@ -175,13 +182,13 @@
 			))
 	 )
     (message "juslides-src")
-    (print code)
+    (print (s-trim-right code))
     (org-juslides-cell "code"
 		       (cond
 			(skipslide "skip")
 			(animate "fragment")
 			(t "-"))
-		       code)
+		       (s-trim-right code))
     )
   )
 
@@ -419,10 +426,9 @@ for the very first block we crete (i.e., true suppresses prepending of closing b
            \"slide_type\": \"%s\"
          } 
      }, %s
-     \"source\": [[[ 
-%s"
+     \"source\": [[[%s"
    (if (not x)
-       "\n     ]]]
+       "]]]
     },"
      "")
    celltype
@@ -589,9 +595,12 @@ holding export options."
     	     		       ))
     	     (completeSource (concat "\"" protectedSource "\"\n"))
     	     (sourcedSource (concat "\"source\": [" completeSource "]"))
+	     ; we need to get rid of trailing empty lines at the end of a source block: 
+	     (cleanupSource (replace-regexp-in-string "\\\\n\",\n\"\\\\n\",\n\"\"" "\"" sourcedSource))
     	    )
 					; (replace-match sourcedSource)
-    	(replace-match sourcedSource t t) 
+    	; (replace-match sourcedSource t t) 
+    	(replace-match cleanupSource t t) 
     	)
       )
 
