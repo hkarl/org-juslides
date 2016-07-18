@@ -1,3 +1,75 @@
+
+
+
+* Beamer 
+
+** A slide with a beamer block 
+
+
+*** Some definieion 					       :B_definition:
+    :PROPERTIES:
+    :BEAMER_env: definition
+    :END:
+
+sldkfjhslkjf lksjd flskjd flsdj flkdsj
+
+
+
+
+** A Slide without beamer but other markup
+
+*** No beamer							    :animate:
+
+dskfhjl lksjdf lksjd fl
+
+
+** Arithmetischer Ausdruck  -- Syntax 
+
+- Jede Zahl ist ein arithmetischer Ausdruck 
+- Verbindet man zwei arithmetische Ausrücke durch ~+~, ~-~,  ~*~ oder '/', so entsteht ein
+  arithmetischer Ausdruck 
+- Setzt man um einen arithmetischen Ausdruck ein Klammerpaar ~(~
+  ... ~)~, so entsteht ein arithmetischer Ausdruck 
+
+*** Beispiel
+
+#+NAME: arithemtic-expression
+#+BEGIN_SRC python
+(5*3)+5
+#+END_SRC
+
+
+
+** Arithmetischer Ausdruck  -- Syntax				   :subslide:
+
+
+
+Was ist dann ~((627)(223++-+))~ ? 
+
+- Definition vorherige Folie: *Keine Aussage* 
+
+*** Was fehlt?							    :animate:
+
+*Und nur das sind arithmetische Ausdrücke* 
+
+- Typische /rekursive Definition/
+  - Details: VL Modellierung 
+
+
+*** UEBUNG Weitere Beispiele für arithmetische Ausdrücke 	  :dropslide:
+
+
+Geben Sie weitere Beispiele für arithmetische Ausdrücke an. Erklären
+Sie, warum das folgende *keine* arithmetischen Ausrücke sind. 
+
+*** UEBUNG Erweiterung der Definition arithmetischer Ausdrücke 	  :dropslide:
+
+
+Die oben gegebene Definition arithmetischer Ausdrücke entspricht nicht
+exakt der von Python verwendeten. Finden Sie den Unterschied heraus;
+welcher Aspekt fehlt? 
+
+
 * Empty part
 
 ** First heading 
@@ -8,4 +80,3 @@ $x = \sin(x)$
 This is first para
 
 This is second para
-
