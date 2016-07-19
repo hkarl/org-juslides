@@ -7,6 +7,33 @@
 (require 'ox)
 
 
+;; the next two secxp are from:
+;; http://emacs.stackexchange.com/questions/2952/display-errors-and-warnings-in-an-org-mode-code-block
+;; still needs to be tied into the processing loop? 
+(defvar org-babel-eval-verbose t
+  "A non-nil value makes `org-babel-eval' display")
+
+(defun org-babel-eval (cmd body)
+  "Run CMD on BODY.
+If CMD succeeds then return its results, otherwise display
+STDERR with `org-babel-eval-error-notify'."
+  (let ((err-buff (get-buffer-create " *Org-Babel Error*")) exit-code)
+    (with-current-buffer err-buff (erase-buffer))
+    (with-temp-buffer
+      (insert body)
+      (setq exit-code
+            (org-babel--shell-command-on-region
+             (point-min) (point-max) cmd err-buff))
+      (if (or (not (numberp exit-code)) (> exit-code 0)
+              (and org-babel-eval-verbose (> (buffer-size err-buff) 0))) ; new condition
+          (progn
+            (with-current-buffer err-buff
+              (org-babel-eval-error-notify exit-code (buffer-string)))
+            nil)
+        (buffer-string)))))
+;;------------
+
+
 (org-export-define-derived-backend 'julatex 'latex
  :menu-entry
  '(?s 99
@@ -80,7 +107,16 @@
   ))
 
 
+;; a filter to get rid of %%tutor magic markup
 
+(defun julatex-filter-notutor (backend)
+  "Ensure that tutor magic markup is removed for Latex export."
+  (when (org-export-derived-backend-p backend 'latex)
+    (replace-regexp "%%tutor.*\n" ""))
+  )
+
+(add-to-list 'org-export-before-processing-hook
+	     'julatex-filter-notutor)
 
 
 ;; some simple test code: 				  
@@ -116,5 +152,9 @@
 ;; ")
 
 ;;   (org-export-to-buffer 'julatex "*julatex backend export*" nil nil nil t))
+
+
+
+
 
 (provide 'ox-julatex)
