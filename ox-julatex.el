@@ -5,7 +5,7 @@
 ;; markup
 
 (require 'ox)
-
+; (require 's)
 
 ;; the next two secxp are from:
 ;; http://emacs.stackexchange.com/questions/2952/display-errors-and-warnings-in-an-org-mode-code-block
@@ -112,7 +112,24 @@ STDERR with `org-babel-eval-error-notify'."
 (defun julatex-filter-notutor (backend)
   "Ensure that tutor magic markup is removed for Latex export."
   (when (org-export-derived-backend-p backend 'latex)
-    (replace-regexp "%%tutor.*\n" ""))
+    ; (replace-regexp "%%tutor.*\n *" "")
+    (while (re-search-forward "%%tutor\\(.*\\)\n *\\([\0-\377[:nonascii:]]*?\\)#\\+END_SRC" nil t)
+      (replace-match (concat ; (match-string 1)
+			     (match-string 2)
+			     "\n#+END_SRC\n\n"
+			     "[[http://www.pythontutor.com/visualize.html#code="
+			     (url-hexify-string (match-string 2))
+			     (format "&py=%s][(PT link)]]\n\n"
+				     (if (cl-search "java" (match-string 1))
+					 "java"
+				       "3"
+					 )
+				     )
+			     )
+		     t t 
+		     )
+      )
+    )
   )
 
 (add-to-list 'org-export-before-processing-hook
