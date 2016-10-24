@@ -544,6 +544,11 @@ holding export options."
 (defun org-juslides-final-function (contents _backend info)
   ;; work on the buffer to replace the sources strings
 
+  ;; debugging code, alternative to with-temp-buffer: 
+  ;; (setq buffer (generate-new-buffer "juslides"))
+  ;; (set-buffer buffer)
+  ;; (print buffer)
+  ;; (progn
   (with-temp-buffer
     (insert contents)
     (goto-char (point-min))
@@ -610,6 +615,30 @@ holding export options."
     (indent-for-tab-command)
 
     
+    ;; somehow, somewhere, tabs appears :-(
+    ;; they correspond to eight spaces 
+    (goto-char (point-min))
+    (while (re-search-forward "\t" nil t)
+      (replace-match "        "))
+
+    ;; RYSE math rendering matces on $ $ and $$...$$, not the more correct \( \) and \[ \]
+    ;; that is produced by org. So we have to swap that back
+    ;; In the json file, we see: \\( -- turn that into regexp
+    (goto-char (point-min))
+    (while (re-search-forward "\\\\\\\\(" nil t)
+      (replace-match "$"))
+    (goto-char (point-min))
+    (while (re-search-forward "\\\\\\\\)" nil t)
+      (replace-match "$"))
+    ;; not that the open bracket needs to be protected by two backslashed itself: 
+    (goto-char (point-min))
+    (while (re-search-forward "\\\\\\\\\\[" nil t)
+      (replace-match "$$"))
+    (goto-char (point-min))
+    (while (re-search-forward "\\\\\\\\]" nil t)
+      (replace-match "$$"))
+    
+    
     ;; return buffer content as resulting string:
     (buffer-substring-no-properties (point-min) (point-max))
     )
@@ -656,6 +685,34 @@ non-nil."
     async subtreep visible-only nil nil (lambda () (json-mode)))  
   )
 
+
+;;--------------------
+
+;; possible approach, but does not mesh nicely with editing of code blocks: 
+;; ;; we need a little helper function to properly export code blocks
+;; ;; - when export to latex, export the results as well
+;; ;; - when export to slides, only the code
+;; ;; usage:
+;; ;; #+BEGIN_SRC python :exports (export-by-backend) :results output
+;; (defmacro export-by-backend ()
+;;   `(progn
+;;       (cond 
+;;        ((org-export-derived-backend-p backend 'latex) "both")
+;;        ((org-export-derived-backend-p backend 'md) "code") 
+;;        (t "code"))
+;;     ))
+
+
+;; a filter to only export code blocks, but no results to juslides 
+
+(defun juslides-code-export (backend)
+  "Ensure that tutor magic markup is removed for Latex export."
+  (when (org-export-derived-backend-p backend 'juslides)
+    (replace-regexp ":exports both" ":exports code"))
+  )
+
+(add-to-list 'org-export-before-processing-hook
+	     'juslides-code-export)
 
 
 
