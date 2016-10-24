@@ -8,10 +8,17 @@ and force and full as optional labels."
 	 (info (nth 1 args))
 	 (type (org-element-type datum))
 	 )
-    (print "fix label")
-    (print type)
+    (print "fix label2")
+    (print (format "type: %s type-of type: %s\n"
+		   type
+		   (type-of type)))
     (print (org-element-property :name datum))
     (case type
+      ((headline)
+       (print "headline!")
+       (print (org-element-property :name datum))
+       (format "\\label{%s}" "hallo")
+       )
       ((src-block paragraph)
        (let ( (labelname (org-element-property :name datum))
 	     )
